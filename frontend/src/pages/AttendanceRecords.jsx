@@ -1,0 +1,3 @@
+import React from "react";
+import {useEffect,useState} from "react";import api from "../api";
+export default function AttendanceRecords(){const [items,setItems]=useState([]);useEffect(()=>{api.get("/attendance").then(r=>setItems(r.data))},[]);return <div className="panel"><h2>Attendance Records</h2><table><thead><tr><th>Date</th><th>Roll No</th><th>Student</th><th>Subject</th><th>Status</th></tr></thead><tbody>{items.map(x=><tr key={x._id}><td>{x.date}</td><td>{x.student?.rollNumber}</td><td>{x.student?.name}</td><td>{x.subject?.subjectCode} - {x.subject?.subjectName}</td><td className={x.status==="Present"?"present":"absent"}>{x.status}</td></tr>)}</tbody></table></div>}
